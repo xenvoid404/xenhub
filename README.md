@@ -1,5 +1,43 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Prisma Multi-File Schema
+
+This project uses a multi-file schema approach for Prisma, which allows us to organize our database models into separate files for better maintainability.
+
+### Structure
+
+- `prisma/schema.prisma` - Main configuration file with generator and datasource
+- `prisma/models/` - Directory containing individual model files
+- `prisma/migrations/` - Database migration files
+
+### Database Seeding
+
+This project includes a seeder (`prisma/seed.ts`) that provides initial data for the application. There are two ways to seed the database:
+
+1. **Automatic seeding during migration** (recommended):
+   ```bash
+   pnpm prisma migrate dev --name init
+   ```
+   This will automatically run the seeder after applying migrations.
+
+2. **Manual seeding**:
+   ```bash
+   # Seed the database with initial data
+   pnpm seed
+   
+   # Clean the database and seed with fresh data
+   pnpm seed -- --clean
+   ```
+
+### Available Scripts
+
+- `npm run prisma:generate` - Combine schema files and generate Prisma client
+- `npm run prisma:migrate [name]` - Create and run database migration (includes seeding data automatically)
+- `npm run seed` - Seed the database with initial data (manual seeding)
+- `npm run seed -- --clean` - Clean the database and seed with fresh data (manual seeding)
+
+For more details about the Prisma setup, check [prisma/README.md](prisma/README.md).
+
 ## Getting Started
 
 First, run the development server:
