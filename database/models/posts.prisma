@@ -1,0 +1,29 @@
+enum PostStatus {
+Draft
+Pending
+Scheduled
+Published
+Archived
+Trash
+}
+
+model Post {
+id String       @id @default(cuid())
+userId String       @map("user_id")
+categoryId String       @map("category_id")
+subCategoryId String?      @map("sub_category_id")
+title String
+slug String
+content String       @db.LongText
+status PostStatus   @default(Draft)
+ isFeatured Boolean    @default(false) @map("is_featured")
+user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+category Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+subCategory SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+comments Comment[]
+createdAt DateTime     @default(now()) @map("created_at")
+updatedAt DateTime     @updatedAt @map("updated_at")
+
+@@unique([slug])
+@@map("posts")
+}

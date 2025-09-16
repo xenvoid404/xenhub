@@ -1,0 +1,27 @@
+enum UserRole {
+Subscriber
+Contributor
+Author
+Editor
+Administrator
+}
+
+model User {
+id String          @id @default(cuid())
+name String?
+username String?         @unique
+email String?         @unique
+emailVerifiedAt DateTime?       @map("email_verified_at")
+password String?
+image String?
+role UserRole        @default(Subscriber)
+accounts Account[]
+sessions Session[]
+authenticators Authenticator[]
+posts Post[]
+comments Comment[]
+createdAt DateTime        @default(now()) @map("created_at")
+updatedAt DateTime        @updatedAt @map("updated_at")
+
+@@map("users")
+}

@@ -1,4 +1,4 @@
-import { type LucideIcon, type LucideProps, Eye, EyeOff, Github, LoaderCircle, Menu, Moon, Sun, Laptop } from 'lucide-react';
+import { type LucideIcon, type LucideProps, Eye, EyeOff, Github, LoaderCircle, Menu, Moon, Search, Sun, Laptop } from 'lucide-react';
 
 export const Icon: LucideIcon = {
     eye: Eye,
@@ -6,6 +6,7 @@ export const Icon: LucideIcon = {
     loaderCircle: LoaderCircle,
     menu: Menu,
     moon: Moon,
+    search: Search,
     sun: Sun,
     laptop: Laptop,
     google: ({ ...props }: LucideProps) => (

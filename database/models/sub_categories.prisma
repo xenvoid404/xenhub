@@ -1,0 +1,13 @@
+model SubCategory {
+id String   @id @default(cuid())
+categoryId String   @map("category_id")
+name String
+slug String
+category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+posts Post[]
+createdAt DateTime @default(now()) @map("created_at")
+updatedAt DateTime @updatedAt @map("updated_at")
+
+@@unique([name, slug])
+@@map("sub_categories")
+}

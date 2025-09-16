@@ -1,0 +1,12 @@
+model Category {
+id String        @id @default(cuid())
+name String        @db.VarChar(100)
+slug String
+posts Post[]
+createdAt DateTime      @default(now()) @map("created_at")
+updatedAt DateTime      @updatedAt @map("updated_at")
+SubCategory SubCategory[]
+
+@@unique([name, slug])
+@@map("categories")
+}
