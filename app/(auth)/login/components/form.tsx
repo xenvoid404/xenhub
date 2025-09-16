@@ -2,13 +2,14 @@ import { EmailInput } from '@/app/(auth)/login/components/email-input';
 import { PasswordInput } from '@/app/(auth)/login/components/password-input';
 import { SubmitButton } from '@/app/(auth)/login/components/submit-button';
 import { Separator } from '@/components/ui/separator';
-import { Icon } from '@/components/ui/icons';
+import { Button } from '@/components/ui/button';
+import { signIn } from '@/auth';
+import { Oauth } from '@/components/oauth'
 
 export function Form() {
     return (
-        <form className="space-y-4">
-            <EmailInput />
-            <PasswordInput />
+        <>
+        <Oauth />
             <div className="relative">
                 <div className="absolute inset-0 flex items-center">
                     <Separator />
@@ -17,7 +18,11 @@ export function Form() {
                     <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
                 </div>
             </div>
-            <SubmitButton />
-        </form>
+            <form className="space-y-4">
+                <EmailInput />
+                <PasswordInput />
+                <SubmitButton />
+            </form>
+        </>
     );
 }

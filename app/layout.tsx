@@ -2,6 +2,7 @@ import { type Metadata, type Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import '@/app/styles/globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -88,7 +89,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="scroll-smooth">
-            <body className={`${inter.variable} ${calSans.variable} antialiased`}>{children}</body>
+            <body className={`${inter.variable} ${calSans.variable} antialiased`}>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                    {children}
+                </ThemeProvider>
+            </body>
         </html>
     );
 }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Eye, EyeOff } from 'lucide-react';
+import { Icon } from '@/components/ui/icons';
 
 export function PasswordInput() {
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -23,7 +23,7 @@ export function PasswordInput() {
                     className="absolute top-1/2 right-1 h-8 w-8 -translate-y-1/2"
                     onClick={toggleVisibility}
                 >
-                    {isVisible ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+                    {isVisible ? <Icon.eyeOff className="size-5" /> : <Icon.eye className="size-5" />}
                 </Button>
             </div>
         </div>
