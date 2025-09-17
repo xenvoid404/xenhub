@@ -1,0 +1,15 @@
+services:
+    xenhub:
+        container_name: xenhub
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - '3001:3001'
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
