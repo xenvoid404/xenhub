@@ -1,15 +1,15 @@
 import { Input } from '@/components/ui/input';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
-interface PasswordInputProps {
+interface NameInputProps {
     register: UseFormRegister<any>;
     error?: FieldError;
 }
 
-export function PasswordInput({ register, error }: PasswordInputProps) {
+export function NameInput({ register, error }: NameInputProps) {
     return (
         <div>
-            <Input type="password" placeholder="Enter your password" {...register('password')} />
+            <Input type="text" placeholder="Enter your name" {...register('name')} />
             {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
         </div>
     );

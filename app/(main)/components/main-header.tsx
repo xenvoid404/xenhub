@@ -13,7 +13,7 @@ export async function MainHeader() {
             <div className="flex h-14 items-center justify-between px-4 sm:px-6">
                 <div className="flex h-full items-center">
                     <Link href="/" aria-label={`${process.env.APP_NAME} - Go to homepage`}>
-                        <Image src="/logo-name.png" width={100} height={41} />
+                        <Image src="/logo-name.png" width={100} height={41} alt="Xenhub" />
                     </Link>
                 </div>
                 <div className="flex items-center gap-1">
