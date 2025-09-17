@@ -12,7 +12,6 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@latest --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm prisma generate
 RUN pnpm build
 
 FROM node:22-slim AS runner
