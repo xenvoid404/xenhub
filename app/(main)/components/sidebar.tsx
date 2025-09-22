@@ -1,7 +1,7 @@
 'use client';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { useSidebarStore } from '@/store/sidebar-store';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
     { name: 'Artikel Pilihan', href: '#featured-post' },
@@ -12,30 +12,26 @@ const navItems = [
 export function Sidebar() {
     const { isOpen, close } = useSidebarStore();
 
+    if (!isOpen) return null;
+
     return (
-        <Sheet open={isOpen} onOpenChange={close}>
-            <SheetContent className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 p-0">
-                <div className="p-6">
-                    <SheetHeader className="text-left mb-8">
-                        <SheetTitle>Menu</SheetTitle>
-                    </SheetHeader>
-                    <nav>
-                        <ul className="space-y-4">
-                            {navItems.map((item) => (
-                                <li key={item.name}>
-                                    <Link
-                                        href={item.href}
-                                        onClick={close}
-                                        className="block text-lg font-medium text-slate-400 hover:text-white transition-colors duration-200"
-                                    >
+        <div className="fixed inset-0 z-40 bg-background" role="dialog" aria-modal="true" aria-label="Sidebar menu">
+            <div className="flex flex-col h-full">
+                <div className="flex flex-1 flex-col items-center justify-start pt-24 px-4 sm:px-6">
+                    <nav className="flex flex-col items-center gap-6 w-full">
+                        <div className="flex flex-col space-y-4">
+                            {navItems.map(item => (
+                                <Button key={item.name} variant="ghost" className="block" asChild>
+                                    <Link href={item.href} onClick={close}>
                                         {item.name}
                                     </Link>
-                                </li>
+                                </Button>
                             ))}
-                        </ul>
+                        </div>
                     </nav>
                 </div>
-            </SheetContent>
-        </Sheet>
+                <nav></nav>
+            </div>
+        </div>
     );
 }
