@@ -9,29 +9,21 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
- */
 class PostFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        $title = $this->faker->sentence();
+  public function definition(): array
+  {
+    $title = $this->faker->sentence();
 
-        return [
-            'user_id' => User::factory(),
-            'category_id' => Category::factory(),
-            'sub_category_id' => SubCategory::factory(),
-            'title' => $title,
-            'slug' => Str::slug($title),
-            'content' => $this->faker->paragraph(),
-            'is_featured' => $this->faker->boolean(),
-            'status' => $this->faker->randomElement(Status::cases()),
-        ];
-    }
+    return [
+      "user_id" => 1,
+      "category_id" => 1,
+      "sub_category_id" => $this->faker->randomElement([1, 2]),
+      "title" => $title,
+      "slug" => Str::slug($title),
+      "content" => $this->faker->paragraph(),
+      "is_featured" => $this->faker->boolean(),
+      "status" => $this->faker->randomElement(Status::cases()),
+    ];
+  }
 }
