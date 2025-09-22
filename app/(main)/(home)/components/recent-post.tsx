@@ -49,7 +49,7 @@ const posts = [
 
 export function RecentPost() {
     return (
-        <section className="py-20 px-6">
+        <section id="recent-post" className="py-20 px-6">
             <div className="mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-2xl md:text-4xl mb-4">Postingan Terbaru</h2>

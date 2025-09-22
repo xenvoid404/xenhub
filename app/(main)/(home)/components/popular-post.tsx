@@ -30,7 +30,7 @@ const popularPosts = [
 
 export function PopularPost() {
     return (
-        <section className="py-20 px-6">
+        <section id="popular-post" className="py-20 px-6">
             <div className="mx-auto max-w-4xl">
                 <div className="text-center mb-16">
                     <h2 className="text-2xl md:text-4xl mb-4">Postingan Populer</h2>

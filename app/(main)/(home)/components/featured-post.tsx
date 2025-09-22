@@ -48,7 +48,7 @@ const posts = [
 
 export function FeaturedPost() {
     return (
-        <section className="py-20 px-6">
+        <section id="featured-post" className="py-20 px-6">
             <div className="mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-2xl md:text-4xl mb-4">Artikel Pilihan</h2>
