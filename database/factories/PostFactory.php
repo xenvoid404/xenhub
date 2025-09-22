@@ -2,7 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Enums\Post\Status;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
@@ -16,8 +21,17 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $title = $this->faker->sentence();
+
         return [
-            //
+            'user_id' => User::factory(),
+            'category_id' => Category::factory(),
+            'sub_category_id' => SubCategory::factory(),
+            'title' => $title,
+            'slug' => Str::slug($title),
+            'content' => $this->faker->paragraph(),
+            'is_featured' => $this->faker->boolean(),
+            'status' => $this->faker->randomElement(Status::cases()),
         ];
     }
 }
