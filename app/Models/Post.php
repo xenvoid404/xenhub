@@ -10,7 +10,7 @@ class Post extends Model
 {
   use HasFactory;
 
-  protected $fillable = ["user_id", "category_id", "sub_category_id", "title", "slug", "content", "is_featured", "status"];
+  protected $fillable = ["user_id", "category_id", "sub_category_id", "title", "slug", "excerpt", "content", "is_featured", "status"];
 
   protected $casts = [
     "status" => Status::class,

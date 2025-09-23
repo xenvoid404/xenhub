@@ -24,6 +24,7 @@ return new class extends Migration {
         ->onDelete("cascade");
       $table->string("title");
       $table->string("slug");
+      $table->text("excerpt")->nullable();
       $table->longText("content");
       $table->boolean("is_featured");
       $table->string("status")->default(Status::DRAFT->value);

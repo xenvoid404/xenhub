@@ -10,3 +10,5 @@ Route::get("/test", function () {
 Route::get("/user", function (Request $request) {
   return $request->user();
 })->middleware("auth:sanctum");
+
+require __DIR__ . "/v1.php";
