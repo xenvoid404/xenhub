@@ -11,7 +11,8 @@ class FeaturedPostController extends Controller
 {
   public function index()
   {
-    $posts = Post::where("is_featured", true)
+    $posts = Post::with(["user:id,name,avatar,role"])
+      ->where("is_featured", true)
       ->where("status", Status::PUBLISHED)
       ->orderBy("created_at", "desc")
       ->limit(6)
