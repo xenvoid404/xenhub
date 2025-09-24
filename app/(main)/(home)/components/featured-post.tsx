@@ -3,42 +3,11 @@ import { Badge } from '@/components/ui/badge';
 import { Icon } from '@/components/icon';
 import Image from 'next/image';
 import Link from 'next/link';
-import axios from 'axios';
-
-interface Post {
-    id: number;
-    title: string;
-    slug: string;
-    image: string;
-    excerpt: string | null;
-    content: string;
-    status: string;
-    is_featured: boolean;
-    view_count: number;
-    created_at: string;
-    updated_at: string;
-    category: {
-        name: string;
-        slug: string;
-    };
-    user: {
-        name: string;
-        avatar: string;
-        role: string;
-    };
-}
-
-async function getFeaturedPosts(): Promise<Post[]> {
-    try {
-        const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/featured-post`);
-        return data.data.posts;
-    } catch (error) {
-        return [];
-    }
-}
+import { formatCompactNumber } from '@/lib/utils';
+import { getFeaturedPost } from '@/app/(main)/(home)/lib/api';
 
 export async function FeaturedPost() {
-    const posts = await getFeaturedPosts();
+    const posts = await getFeaturedPost();
 
     return (
         <section id="featured-post" className="py-20 px-6">
@@ -60,7 +29,7 @@ export async function FeaturedPost() {
                                         <div className="flex items-center justify-between">
                                             <Badge className="text-accent">{post.category.name}</Badge>
                                             <Badge variant="secondary">
-                                                <Icon.eye className="size-4" /> {post.view_count}
+                                                <Icon.eye className="size-4" /> {formatCompactNumber(post.view_count)}
                                             </Badge>
                                         </div>
                                         <CardTitle className="text-xl md:text-2xl group-hover:text-purple-300 transition-colors duration-300">
@@ -68,7 +37,7 @@ export async function FeaturedPost() {
                                         </CardTitle>
                                     </CardHeader>
                                     <CardContent className="flex-grow">
-                                        <CardDescription className="leading-relaxed line-clamp-3">{post.excerpt}</CardDescription>
+                                        <CardDescription className="leading-relaxed line-clamp-3">{post.excerpt || post.content}</CardDescription>
                                     </CardContent>
                                     <CardFooter className="flex items-center justify-between">
                                         <div className="flex items-center space-x-3">
