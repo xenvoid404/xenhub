@@ -7,7 +7,11 @@ import Link from 'next/link';
 
 export function SidebarContent({ menus }) {
     const { isOpen, close } = useSidebarStore();
-    const [isCategoryOpen, setCategoryOpen] = useState();
+    const [openMenuIndex, setOpenMenuIndex] = useState(null);
+
+    const handleMenuClick = index => {
+        setOpenMenuIndex(openMenuIndex === index ? null : index);
+    };
 
     if (!isOpen) return null;
 
@@ -19,33 +23,47 @@ export function SidebarContent({ menus }) {
             aria-label="Sidebar menu"
         >
             <div className="relative flex flex-col h-full">
-                <div className="flex items-center justify-between pt-18 p-2 sm:p-6">
-                    <nav className="flex-1 space-y-2">
-                        {menus.map((item, index) => (
-                            <li key={index}>
-                                {item.subMenus ? (
-                                    <>
-                                        <Button variant="ghost" className="w-full justify-between" onClick={() => setCategoryOpen(!isCategoryOpen)}>
-                                            {item.name}
-                                            <Icon.chevronDown className={`w-4 h-4 transition-transform ${isCategoryOpen ? 'rotate-180' : ''}`} />
-                                        </Button>
-                                        {item.subMenus.map((subMenu, index) => (
-                                            <Button key={index} variant="ghost" className="block" asChild>
-                                                <Link href={`/category/${subMenu.slug}`} onClick={close}>
-                                                    {subMenu.name}
-                                                </Link>
+                <div className="flex items-center justify-between pt-18 p-2 sm:p-4">
+                    <nav className="flex-1">
+                        <ul className="space-y-2">
+                            {menus.map((item, index) => (
+                                <li key={item.name}>
+                                    {item.subMenus ? (
+                                        <>
+                                            <Button
+                                                variant="ghost"
+                                                className="flex w-full items-center justify-between"
+                                                onClick={() => handleMenuClick(index)}
+                                            >
+                                                <span className="ml-1">{item.name}</span>
+                                                <Icon.chevronDown
+                                                    className={`size-5 transition-transform ${openMenuIndex === index ? 'rotate-180' : ''}`}
+                                                />
                                             </Button>
-                                        ))}
-                                    </>
-                                ) : (
-                                    <Button key={item.name} variant="ghost" className="block" asChild>
-                                        <Link href={item.href} onClick={close}>
-                                            {item.name}
-                                        </Link>
-                                    </Button>
-                                )}
-                            </li>
-                        ))}
+                                            {openMenuIndex === index && (
+                                                <ul className="pl-4 mt-2 space-y-1">
+                                                    {item.subMenus.map(subMenu => (
+                                                        <li key={subMenu.name}>
+                                                            <Button variant="ghost" className="w-full justify-start" asChild>
+                                                                <Link href={`/category/${subMenu.slug}`} onClick={close}>
+                                                                    {subMenu.name}
+                                                                </Link>
+                                                            </Button>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <Button variant="ghost" className="w-full justify-start" asChild>
+                                            <Link href={item.href} onClick={close}>
+                                                <span className="flex-1 text-left">{item.name}</span>
+                                            </Link>
+                                        </Button>
+                                    )}
+                                </li>
+                            ))}
+                        </ul>
                     </nav>
                 </div>
             </div>

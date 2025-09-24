@@ -9,7 +9,7 @@ export function Header() {
             <div className="flex h-14 items-center justify-between px-4 sm:px-6">
                 <div className="flex h-full items-center">
                     <Link href="/" aria-label={`${process.env.APP_NAME} - Go to homepage`}>
-                        <Image src="/logo-name.png" width={100} height={41} alt={`${process.env.APP_NAME} Logo`} />
+                        <Image src="/logo-name.png" width={95} height={36} alt={`${process.env.APP_NAME} Logo`} />
                     </Link>
                 </div>
                 <div className="flex items-center gap-1">

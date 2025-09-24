@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export function Hero() {
     return (
@@ -9,7 +10,9 @@ export function Hero() {
                     Temukan wawasan mendalam, analisis berkualitas, dan perspektif segar dalam dunia teknologi, bisnis, dan inovasi.
                 </p>
                 <div className="flex items-center justify-center gap-2">
-                    <Button>Jelajahi Artikel</Button>
+                    <Button asChild>
+                        <Link href="#featured-post">Jelajahi Artikel</Link>
+                    </Button>
                 </div>
             </div>
         </section>
