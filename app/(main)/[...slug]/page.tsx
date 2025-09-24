@@ -2,61 +2,53 @@ import { notFound } from 'next/navigation';
 import axios from 'axios';
 import Image from 'next/image';
 import { cache } from 'react';
+import { type Category, type Post, type User } from '@/types';
 
-// Define the types for our data
-interface Category {
-    name: string;
-    slug: string;
-}
-
-interface Post {
+interface AllPost {
     id: number;
     title: string;
     slug: string;
+    image: string;
+    excerpt: string | null;
     content: string;
-    excerpt: string;
-    category: Category;
-    subCategory: Category;
-    author: string;
-    avatar: string;
-    date: string;
+    status: string;
+    is_featured: boolean;
+    view_count: number;
+    created_at: string;
+    updated_at: string;
+    category: {
+        name: string;
+        slug: string;
+    };
+    user: {
+        name: string;
+        avatar: string;
+        role: string;
+    };
 }
 
-// --- Data Fetching ---
-// We use React's `cache` to ensure we only fetch this data once per request.
-// Next.js extends `fetch` to automatically memoize requests, but using `cache`
-// is a good practice if you use other libraries like axios.
-const getAllPosts = cache(async (): Promise<Post[]> => {
+const getAllPosts = cache(async (): Promise<AllPost[]> => {
     try {
-        const { data } = await axios.get('https://api.xenhub.my.id/api/v1/posts/all');
+        const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/posts/all`);
         return data.data.posts;
     } catch (error) {
         return [];
     }
 });
 
-// --- Static Generation ---
-// This function tells Next.js which pages to build at build time.
 export async function generateStaticParams() {
     const posts = await getAllPosts();
 
     return posts.map(post => ({
-        slug: [post.category.slug, post.subCategory.slug, post.slug]
+        slug: [post.category.slug, post.slug]
     }));
 }
 
-// --- Page Component ---
 export default async function ArticlePage({ params }: { params: { slug: string[] } }) {
-    // The slug from the URL, e.g., ['category', 'subcategory', 'post-slug']
-    const { slug } = params;
-
-    // Fetch all posts (will be cached)
+    const { slug } = await params;
     const posts = await getAllPosts();
+    const post = posts.find(p => p.category.slug === slug[0] && p.slug === slug[1]);
 
-    // Find the specific post this page is for
-    const post = posts.find(p => p.category.slug === slug[0] && p.subCategory.slug === slug[1] && p.slug === slug[2]);
-
-    // If no post is found for this slug, show a 404 page
     if (!post) {
         notFound();
     }
@@ -70,21 +62,16 @@ export default async function ArticlePage({ params }: { params: { slug: string[]
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">{post.title}</h1>
                 <div className="flex items-center justify-center space-x-4">
-                    <Image src={post.avatar || '/avatar.png'} alt={post.author} width={50} height={50} className="rounded-full" />
+                    <Image src={post.user.avatar || '/avatar.png'} alt={post.user.name} width={50} height={50} className="rounded-full" />
                     <div>
-                        <p className="font-semibold">{post.author}</p>
-                        <p className="text-sm text-slate-400">Published on {post.date}</p>
+                        <p className="font-semibold">{post.user.name}</p>
+                        <p className="text-sm text-slate-400">Published on {post.created_at}</p>
                     </div>
                 </div>
             </header>
 
             {/* Article Content */}
-            <div
-                className="prose prose-invert prose-lg max-w-none mx-auto"
-                // CAUTION: Only use this if you trust the HTML source (e.g., your own CMS).
-                // If the content can be created by users, you must sanitize it to prevent XSS attacks.
-                dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            <div className="prose prose-invert prose-lg max-w-none mx-auto" dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
     );
 }

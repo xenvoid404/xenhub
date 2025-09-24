@@ -1,5 +1,5 @@
 import { SidebarContent } from '@/app/(main)/components/sidebar-content';
-import { getAllCategory } from '@/app/(main)/lib/api';
+import { getAllCategory } from '@/lib/api/user/category';
 import { type Category } from '@/types';
 
 interface Menus {
