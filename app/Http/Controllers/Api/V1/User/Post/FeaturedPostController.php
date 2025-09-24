@@ -11,36 +11,55 @@ class FeaturedPostController extends Controller
 {
   public function index()
   {
-    $posts = Post::with(["user:id,name,avatar,role", "category:id,name,slug", "subCategory:id,name,slug"])
+    $posts = Post::with(["user:name,avatar,role"])
+      ->with(["category:id,name"])
       ->where("is_featured", true)
       ->where("status", Status::PUBLISHED)
       ->orderBy("created_at", "desc")
       ->limit(6)
       ->get();
 
+    if (!$posts) {
+      return response()->json(
+        [
+          "status" => "success",
+          "message" => "Postingan unggulan tidak tersedia",
+        ],
+        204,
+      );
+    }
+
     $transformedPosts = $posts->map(function ($post) {
       return [
-        'id' => $post->id,
-        'title' => $post->title,
-        'slug' => $post->slug,
-        'description' => $post->excerpt,
-        'category' => $post->category,
-        'subCategory' => $post->subCategory,
-        'author' => $post->user->name,
-        'date' => $post->created_at->format('d M Y'),
-        'user' => $post->user,
+        "id" => $post->id,
+        "category" => $post->category->name,
+        "title" => $post->title,
+        "slug" => $post->slug,
+        "image" => $post->image,
+        "excerpt" => $post->excerpt,
+        "content" => $post->content,
+        "status" => $post->status->value,
+        "is_featured" => $post->is_featured,
+        "view_count" => $post->view_count,
+        "created_at" => $post->created_at->format("d M Y, H:i"),
+        "updated_at" => $post->updated_at->format("d M Y, H:i"),
+        "user" => [
+          "name" => $post->user->name,
+          "avatar" => $post->user->avatar,
+          "role" => $post->user->role->value,
+        ],
       ];
     });
 
-    return response()->json([
-      "meta" => [
+    return response()->json(
+      [
         "status" => "OK",
-        "code" => 200,
         "message" => "Getting featured post successful",
+        "data" => [
+          "posts" => $transformedPosts,
+        ],
       ],
-      "data" => [
-        "posts" => $transformedPosts,
-      ],
-    ]);
+      200,
+    );
   }
 }

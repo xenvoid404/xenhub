@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\User\Role;
+use App\Enums\User\Status;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +13,7 @@ class User extends Authenticatable
 {
   use HasFactory, Notifiable;
 
-  protected $fillable = ["name", "username", "avatar", "email", "password", "role"];
+  protected $fillable = ["name", "username", "avatar", "email", "password", "role", "status"];
 
   protected $hidden = ["password", "remember_token"];
 
@@ -20,6 +21,7 @@ class User extends Authenticatable
     "email_verified_at" => "datetime",
     "password" => "hashed",
     "role" => Role::class,
+    "status" => Status::class,
   ];
 
   public function posts()

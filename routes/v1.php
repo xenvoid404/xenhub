@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\Api\V1\User\Categories\AllCategoryController;
 use App\Http\Controllers\Api\V1\User\Post\AllPostsController;
 use App\Http\Controllers\Api\V1\User\Post\FeaturedPostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/v1/featured-post", [FeaturedPostController::class, "index"]);
-Route::get("/v1/posts/all", [AllPostsController::class, "index"]);
+Route::prefix("v1")->group(function () {
+  Route::get("/all-category", [AllCategoryController::class, "index"]);
+  Route::get("/featured-post", [FeaturedPostController::class, "index"]);
+  Route::get("/posts/all", [AllPostsController::class, "index"]);
+});

@@ -18,16 +18,14 @@ return new class extends Migration {
         ->foreignId("category_id")
         ->constrained("categories")
         ->onDelete("cascade");
-      $table
-        ->foreignId("sub_category_id")
-        ->constrained("sub_categories")
-        ->onDelete("cascade");
       $table->string("title");
       $table->string("slug");
+      $table->string("image");
       $table->text("excerpt")->nullable();
       $table->longText("content");
-      $table->boolean("is_featured");
       $table->string("status")->default(Status::DRAFT->value);
+      $table->boolean("is_featured");
+      $table->integer("view_count")->default(0);
       $table->timestamps();
     });
   }

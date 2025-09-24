@@ -17,9 +17,9 @@ class PostSeeder extends Seeder
     Post::create([
       "user_id" => 1,
       "category_id" => 1,
-      "sub_category_id" => 1,
       "title" => $title1,
       "slug" => Str::slug($title1),
+      "image" => "https://picsum.photos/1600/900",
       "excerpt" =>
         "Khawatir pekerjaan programmer akan digantikan oleh AI? Temukan jawabannya di sini. Pelajari bagaimana peran programmer berevolusi dan 5 skill kunci untuk bertahan dan sukses di era AI.",
       "content" => '
@@ -113,8 +113,9 @@ Jangan takut menjadi usang. Takutlah menjadi stagnan. Mulailah melihat AI bukan 
 
 Pertanyaannya bukan lagi apakah AI akan mengubah pekerjaan kita, tapi bagaimana kita akan memimpin perubahan itu.
        ',
-      "is_featured" => 1,
       "status" => Status::PUBLISHED,
+      "is_featured" => 1,
+      "view_count" => 0,
     ]);
   }
 }
