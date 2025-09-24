@@ -1,4 +1,4 @@
-import { type LucideIcon, type LucideProps, Eye, EyeOff, Github, LoaderCircle, Menu, Moon, Search, Sun, Laptop, X } from 'lucide-react';
+import { type LucideIcon, type LucideProps, Eye, EyeOff, Github, LoaderCircle, Menu, Moon, Search, Sun, Laptop, X, ChevronDown } from 'lucide-react';
 
 export const Icon = {
     eye: Eye,
@@ -10,6 +10,7 @@ export const Icon = {
     sun: Sun,
     laptop: Laptop,
     x: X,
+    chevronDown: ChevronDown,
     google: ({ ...props }: LucideProps) => (
         <svg xmlns="http://www.w3.org/2000/svg" width="2443" height="2500" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262" id="google">
             <path
