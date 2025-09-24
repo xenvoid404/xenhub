@@ -6,7 +6,11 @@ import { Icon } from '@/components/icon';
 import Link from 'next/link';
 import { formatCompactNumber } from '@/lib/utils';
 
-export function PostCard({ posts }: PostData[]) {
+interface PostCardProps {
+    posts: PostData[];
+}
+
+export function PostCard({ posts }: PostCardProps) {
     return (
         <>
             {posts.map(post => (
