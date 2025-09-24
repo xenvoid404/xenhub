@@ -1,12 +1,5 @@
 import axios from 'axios';
-
-export interface Category {
-    id: number;
-    name: string;
-    slug: number;
-    created_at: string;
-    updated_at: string;
-}
+import { type Category } from '@/types';
 
 export const getAllCategory = async (): Promise<Category[]> => {
     try {
