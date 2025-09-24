@@ -3,11 +3,19 @@ import { useSidebarStore } from '@/store/sidebar-store';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-const navItems = [
-    { name: 'Beranda', href: '/' },
-    { name: 'Artikel Pilihan', href: '#featured-post' },
-    { name: 'Artikel Terbaru', href: '#recent-post' },
-    { name: 'Artikel Populer', href: '#popular-post' }
+const menus = [
+    {
+        items: [
+            { name: 'Beranda', href: '/' },
+            { name: 'Artikel Pilihan', href: '#featured-post' },
+            { name: 'Artikel Terbaru', href: '#recent-post' },
+            { name: 'Artikel Populer', href: '#popular-post' },
+            {
+                name: 'Kategori',
+                subItems: [{ name: 'Teknologi', href: '#' }]
+            }
+        ]
+    }
 ];
 
 export function Sidebar() {
