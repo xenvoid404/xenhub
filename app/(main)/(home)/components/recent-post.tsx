@@ -14,7 +14,9 @@ export async function RecentPost() {
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <PostCard posts={posts} />
+                    {posts.map(post => (
+                        <PostCard key={post.id} post={post} />
+                    ))}
                 </div>
                 <div className="text-center mt-16">
                     <Button variant="outline">Lihat Semua</Button>
