@@ -1,4 +1,4 @@
-import { type PostData } from '@/lib/api/user/post';
+import { type PostData } from '@/types';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +11,8 @@ interface PostCardProps {
 }
 
 export function PostCard({ post }: PostCardProps) {
+    console.log(post);
+
     return (
         <Link href={`/${post.category.slug}/${post.slug}`}>
             <Card className="rounded-2xl overflow-hidden group cursor-pointer flex flex-col pt-0 h-full">

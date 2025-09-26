@@ -1,45 +1,31 @@
+'use server';
 import axios from 'axios';
-import { type Post, type Category, type User } from '@/types';
+import { type PostData, type Pagination } from '@/types';
 
-export interface PostData {
-    id: number;
-    title: string;
-    slug: string;
-    image: string;
-    excerpt: string | null;
-    content: string;
+export interface RecentPostApiResponse {
     status: string;
-    is_featured: boolean;
-    view_count: number;
-    created_at: string;
-    updated_at: string;
-    category: {
-        name: string;
-        slug: string;
-    };
-    user: {
-        name: string;
-        avatar: string;
-        role: string;
-    };
+    message: string;
+    data: Pagination<PostData[]>;
 }
 
-export async function getFeaturedPost(): Promise<PostData[]> {
-    const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/post/featured`);
-    return data.data.posts;
-}
+export async function getRecentPost(page: number, options?: RequestInit): Promise<RecentPostApiResponse> {
+    const url = `${process.env.BACKEND_ENDPOINT}/v1/post/recent?page=${page}`;
 
-export async function getRecentPost(): Promise<PostData[]> {
-    const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/post/recent`);
-    return data.data.posts;
-}
+    try {
+        const response = await fetch(url, { ...options });
+        if (!response.ok) {
+            throw new Error(`Gagal mengambil data, status: ${response.status}`);
+        }
 
-export async function getPopularPost(): Promise<PostData[]> {
-    const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/post/popular`);
-    return data.data.posts;
+        const data: RecentPostApiResponse = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Kesalahan saat fetching getRecentPost:', error);
+        throw error; // Re-throw the error to be handled by the caller
+    }
 }
 
 export async function getAllPost(): Promise<PostData[]> {
     const { data } = await axios.get(`${process.env.BACKEND_ENDPOINT}/v1/post/all`);
-    return data.data.posts;
+    return data.data;
 }

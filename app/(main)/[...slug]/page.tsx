@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
-import { type PostData, getAllPost } from '@/lib/api/user/post';
+import { getAllPost } from '@/lib/api/user/post';
+import { type PostData } from '@/types';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 
